@@ -53,8 +53,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Kuis Tebak Negara</h1>
-        <p> Made by Afrian. Gunakan Bahasa Inggris untuk menebak.</p>
+        <h1>Kuis Tebak Negara by Afrian</h1>
+        <p> Tebak negara dalam Bahasa Inggris. Please do not cheat with long press the picture of the flag. </p>
         <div id="game">
             <div class="flag" id="flag"></div>
             <input type="text" id="answer" placeholder="Masukan nama negara..">
@@ -152,10 +152,10 @@
         function checkAnswer() {
             const answer = document.getElementById("answer").value.trim();
             if (answer.toLowerCase() === currentCountry.toLowerCase()) {
-                alert("Correct! 🎉");
+                alert("Benar! 🎉");
                 score++;
             } else {
-                alert(`Wrong! The correct answer was ${currentCountry}.`);
+                alert(`Salah! Jawaban yang benar adalah ${currentCountry}.`);
             }
             loadNextFlag();
         }
