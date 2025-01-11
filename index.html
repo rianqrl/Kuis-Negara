@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Tebak Negara</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .flag img {
+            width: 200px;
+            height: auto;
+            margin: 20px 0;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 80%;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .score {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kuis Tebak Negara</h1>
+        <p> Made by Afrian. Gunakan Bahasa Inggris untuk menebak.</p>
+        <div id="game">
+            <div class="flag" id="flag"></div>
+            <input type="text" id="answer" placeholder="Masukan nama negara..">
+            <br><br>
+            <button onclick="checkAnswer()">Jawab</button>
+            <div class="score" id="score"></div>
+        </div>
+    </div>
+
+    <script>
+        const flags = {
+            "France": "https://flagcdn.com/fr.svg",
+            "Germany": "https://flagcdn.com/de.svg",
+            "Italy": "https://flagcdn.com/it.svg",
+            "Japan": "https://flagcdn.com/jp.svg",
+            "United States": "https://flagcdn.com/us.svg",
+            "India": "https://flagcdn.com/in.svg",
+            "Canada": "https://flagcdn.com/ca.svg",
+            "Brazil": "https://flagcdn.com/br.svg",
+            "United Kingdom": "https://flagcdn.com/gb.svg",
+            "China": "https://flagcdn.com/cn.svg",
+            "Australia": "https://flagcdn.com/au.svg",
+            "Mexico": "https://flagcdn.com/mx.svg",
+            "South Korea": "https://flagcdn.com/kr.svg",
+            "Russia": "https://flagcdn.com/ru.svg",
+            "South Africa": "https://flagcdn.com/za.svg",
+            "Spain": "https://flagcdn.com/es.svg",
+            "Argentina": "https://flagcdn.com/ar.svg",
+            "Egypt": "https://flagcdn.com/eg.svg",
+            "Sweden": "https://flagcdn.com/se.svg",
+            "Norway": "https://flagcdn.com/no.svg",
+            "Denmark": "https://flagcdn.com/dk.svg",
+            "Finland": "https://flagcdn.com/fi.svg",
+            "Greece": "https://flagcdn.com/gr.svg",
+            "Portugal": "https://flagcdn.com/pt.svg",
+            "Turkey": "https://flagcdn.com/tr.svg",
+            "Thailand": "https://flagcdn.com/th.svg",
+            "Vietnam": "https://flagcdn.com/vn.svg",
+            "Philippines": "https://flagcdn.com/ph.svg",
+            "Saudi Arabia": "https://flagcdn.com/sa.svg",
+            "Netherlands": "https://flagcdn.com/nl.svg",
+            "Belgium": "https://flagcdn.com/be.svg",
+            "Switzerland": "https://flagcdn.com/ch.svg",
+            "Austria": "https://flagcdn.com/at.svg",
+            "Ireland": "https://flagcdn.com/ie.svg",
+            "Poland": "https://flagcdn.com/pl.svg",
+            "Hungary": "https://flagcdn.com/hu.svg",
+            "Czech Republic": "https://flagcdn.com/cz.svg",
+            "Slovakia": "https://flagcdn.com/sk.svg",
+            "Ukraine": "https://flagcdn.com/ua.svg",
+            "Israel": "https://flagcdn.com/il.svg",
+            "New Zealand": "https://flagcdn.com/nz.svg",
+            "Malaysia": "https://flagcdn.com/my.svg",
+            "Singapore": "https://flagcdn.com/sg.svg",
+            "Indonesia": "https://flagcdn.com/id.svg",
+            "Pakistan": "https://flagcdn.com/pk.svg",
+            "Bangladesh": "https://flagcdn.com/bd.svg",
+            "Chile": "https://flagcdn.com/cl.svg",
+            "Colombia": "https://flagcdn.com/co.svg",
+            "Peru": "https://flagcdn.com/pe.svg",
+            "Venezuela": "https://flagcdn.com/ve.svg"
+        };
+
+        let countries = Object.keys(flags);
+        let currentFlag = "";
+        let currentCountry = "";
+        let score = 0;
+        let totalQuestions = countries.length;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function startGame() {
+            shuffle(countries);
+            loadNextFlag();
+        }
+
+        function loadNextFlag() {
+            if (countries.length === 0) {
+                document.getElementById("game").innerHTML = `<h2>Game Over! Final Score: ${score}/${totalQuestions}</h2>`;
+                return;
+            }
+
+            currentCountry = countries.pop();
+            currentFlag = flags[currentCountry];
+            document.getElementById("flag").innerHTML = `<img src="${currentFlag}" alt="Flag of ${currentCountry}">`;
+            document.getElementById("answer").value = "";
+            document.getElementById("score").textContent = `Score: ${score}/${totalQuestions - countries.length - 1}`;
+        }
+
+        function checkAnswer() {
+            const answer = document.getElementById("answer").value.trim();
+            if (answer.toLowerCase() === currentCountry.toLowerCase()) {
+                alert("Correct! 🎉");
+                score++;
+            } else {
+                alert(`Wrong! The correct answer was ${currentCountry}.`);
+            }
+            loadNextFlag();
+        }
+
+        startGame();
+    </script>
+</body>
+</html>
